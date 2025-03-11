@@ -2,9 +2,10 @@ package com.example.kiosk.challenge.lv2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Order {
-    private final List<MenuItem> orderList;
+    private List<MenuItem> orderList;
 
     public Order() {
         this.orderList = new ArrayList<>();
@@ -42,6 +43,7 @@ public class Order {
         return orderList.stream().mapToDouble(MenuItem::getPrice).sum();
     }
 
+    // 주문 진행
     public void order(DiscountType discountType) {
         double discountRate = discountType.getDiscountRate(); // 할인율
         double totalPrice = this.getTotalPrice(); // 총 금액
@@ -49,5 +51,18 @@ public class Order {
 
         System.out.printf("\n주문이 완료되었습니다. %.1f%% 할인이 적용되어 최종 금액은 W %.1f 입니다.\n", discountRate, finalPrice);
         this.clearOrder(); // 장바구니 초기화
+    }
+
+    public boolean removeOrder(String menuNm) {
+        List<MenuItem> filterList = orderList
+                .stream()
+                .filter(order -> !order.getMenuNm().equalsIgnoreCase(menuNm))
+                .collect(Collectors.toList());
+
+        if (orderList.size() == filterList.size()) {
+            return false;
+        }
+        orderList = filterList;
+        return true;
     }
 }

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class Kiosk {
     private final List<Menu> menuList; // 메뉴 목록
@@ -33,7 +32,7 @@ public class Kiosk {
                 }
 
                 System.out.printf("%-12s | 종료\n\n", "0. 종료");
-                menuNo = inputHandler.getUserInput(br, maxOption, true); // inputHandler 실행
+                menuNo = inputHandler.getNumberInput(br, maxOption, true); // inputHandler 실행
 
                 if (menuNo == 0) { // 0 이면 프로그램 종료
                     break;
@@ -46,7 +45,7 @@ public class Kiosk {
                         order.clearOrder(); // 장바구니 초기화
                         System.out.println("\n! 주문이 취소되었습니다 ! ");
                     }
-                } else { // MAIN MENU 선택 시 1
+                } else { // MAIN MENU 선택 시
                     this.processMenuSelection(br, menuList.get(menuNo - 1)); // 선택한 Menu 진행
                 }
             }
@@ -76,17 +75,24 @@ public class Kiosk {
         order.printOrderList(); // 장바구니 List 출력
         order.printTotalPrice(); // 총 금액 출력
 
-        System.out.println("\n1. 주문         2. 메뉴판\n");
+        System.out.println("\n1. 주문         2. 메뉴판         3. 장바구니 삭제\n");
 
-        int no = inputHandler.getUserInput(br, 2, false); // 번호 입력
+        int no = inputHandler.getNumberInput(br, 3, false); // 번호 입력
         if (no == 1) { // 주문 진행
             System.out.println("\n할인 정보를 입력해주세요.");
             DiscountType.printDiscountTypeList(); // 할인 정보 출력
 
-            int dcNo = inputHandler.getUserInput(br, DiscountType.getDiscountTypeCount(), false); // 선택된 할인정보
+            int dcNo = inputHandler.getNumberInput(br, DiscountType.getDiscountTypeCount(), false); // 선택된 할인정보
             DiscountType discountType = DiscountType.getDiscountTypeByIndex(dcNo - 1); // DiscountType 찾기
 
             order.order(discountType); // 주문 진행
+        } else if (no == 3) { // 장바구니 삭제
+            String menuNm = inputHandler.getMenuNmInput(br); // 삭제 메뉴 명 입력
+            if (order.removeOrder(menuNm)) { // 메뉴 삭제
+                System.out.println("\n메뉴 삭제가 완료되었습니다.");
+            } else {
+                System.out.println("\n해당하는 메뉴가 없습니다.");
+            }
         }
     }
 
@@ -96,7 +102,7 @@ public class Kiosk {
             System.out.printf("\n[ %s MENU ]\n", menu.getCategory().toUpperCase()); // 선택한 메뉴 출력
 
             menu.printMenuItemList(); // 선택한 메뉴의 menuItem List 출력
-            int itemNo = inputHandler.getUserInput(br, menu.getMenuItemsSize(), true); // 입력받기
+            int itemNo = inputHandler.getNumberInput(br, menu.getMenuItemsSize(), true); // 입력받기
 
             if (itemNo != 0) { // 메뉴 선택시
                 menu.printMenuItemDetails(itemNo - 1); // menuItem Detail 출력
@@ -104,7 +110,7 @@ public class Kiosk {
 
                 System.out.println("\n위 메뉴를 장바구니에 추가하시겠습니까?");
                 System.out.println("1. 확인         2. 취소\n");
-                int orderNo = inputHandler.getUserInput(br, 2, false); // 입력받기
+                int orderNo = inputHandler.getNumberInput(br, 2, false); // 입력받기
 
                 if (orderNo == 1) { // 장바구니 추가
                     System.out.println(menuItem.getMenuNm() + " 이 장바구니에 추가되었습니다.");
