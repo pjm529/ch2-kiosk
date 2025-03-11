@@ -21,9 +21,8 @@ public class Menu {
 
     // MenuItem 목록 출력
     public void printMenuItemList() {
-        for (int i = 0; i < menuItems.size(); i++) {
-            System.out.println((i + 1) + ". " + menuItems.get(i));
-        }
+        menuItems.stream().forEach(menuItem -> System.out.println((menuItems.indexOf(menuItem) + 1) + ". " + menuItem));
+
         System.out.println("0. 뒤로가기\n");
     }
 

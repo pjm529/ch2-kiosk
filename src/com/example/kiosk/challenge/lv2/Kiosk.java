@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Kiosk {
     private final List<Menu> menuList; // 메뉴 목록
@@ -58,10 +59,7 @@ public class Kiosk {
     // MAIN MENU 목록 출력 함수
     private void printMainMenu() {
         System.out.println("\n[ MAIN MENU ]");
-        int i = 1;
-        for (Menu menu : menuList) {
-            System.out.println(i++ + ". " + menu.getCategory());
-        }
+        menuList.stream().forEach(menu -> System.out.println((menuList.indexOf(menu) + 1) + ". " + menu.getCategory()));
     }
 
     // ORDER MENU 목록 출력 함수

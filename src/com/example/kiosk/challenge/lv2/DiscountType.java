@@ -1,5 +1,7 @@
 package com.example.kiosk.challenge.lv2;
 
+import java.util.stream.IntStream;
+
 public enum DiscountType {
     VETERAN("국가유공자", 10), // 20% 할인
     SOLDIER("군인", 5),     // 15% 할인
@@ -23,12 +25,11 @@ public enum DiscountType {
     }
 
     public static void printDiscountTypeList() {
-        int i = 1;
-
-        for (DiscountType discountType : DiscountType.values()) {
-            System.out.printf("%d. %-10s : %.1f%%%n",
-                    i++, discountType.getValue(), discountType.getDiscountRate());
-        }
+        IntStream.range(0, DiscountType.values().length)
+                .forEach(i -> System.out.printf("%d. %-10s : %.1f%%%n",
+                        i + 1,
+                        DiscountType.values()[i].getValue(),
+                        DiscountType.values()[i].getDiscountRate()));
         System.out.println();
     }
 

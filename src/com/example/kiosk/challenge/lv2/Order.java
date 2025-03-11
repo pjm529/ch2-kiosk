@@ -28,9 +28,7 @@ public class Order {
     // 메뉴 목록 출력 함수
     public void printOrderList() {
         System.out.println("[ Orders ]");
-        for (MenuItem order : orderList) {
-            System.out.println(order);
-        }
+        orderList.stream().forEach(System.out::println);
     }
 
     // 총 금액 출력 함수
@@ -47,7 +45,7 @@ public class Order {
     public void order(DiscountType discountType) {
         double discountRate = discountType.getDiscountRate(); // 할인율
         double totalPrice = this.getTotalPrice(); // 총 금액
-        double finalPrice =  totalPrice - (totalPrice * (discountRate / 100)); // 할인율이 적용된 최종금액
+        double finalPrice = totalPrice - (totalPrice * (discountRate / 100)); // 할인율이 적용된 최종금액
 
         System.out.printf("\n주문이 완료되었습니다. %.1f%% 할인이 적용되어 최종 금액은 W %.1f 입니다.\n", discountRate, finalPrice);
         this.clearOrder(); // 장바구니 초기화
