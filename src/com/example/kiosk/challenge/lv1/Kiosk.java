@@ -80,7 +80,7 @@ public class Kiosk {
         order.printTotalPrice(); // 총 금액 출력
 
         System.out.println("\n1. 주문         2. 메뉴판\n");
-        int no = inputHandler.getUserInput(br, 2, true);
+        int no = inputHandler.getUserInput(br, 2, false);
         if (no == 1) { // 주문 진행
             order.order();
         }
