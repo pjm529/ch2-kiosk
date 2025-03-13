@@ -31,7 +31,7 @@ public class Kiosk {
                     maxOption = menuListSize + 2;
                 }
 
-                System.out.printf("%-12s | 종료\n\n", "0. 종료");
+                System.out.printf("%-13s | 종료\n\n", "0. Exit");
                 menuNo = inputHandler.getNumberInput(br, maxOption, true); // inputHandler 실행
 
                 if (menuNo == 0) { // 0 이면 프로그램 종료
@@ -75,7 +75,7 @@ public class Kiosk {
         order.printOrderList(); // 장바구니 List 출력
         order.printTotalPrice(); // 총 금액 출력
 
-        System.out.println("\n1. 주문         2. 메뉴판         3. 장바구니 삭제\n");
+        System.out.println("\n1. 주문         2. 메뉴판         3. 메뉴 삭제\n");
 
         int no = inputHandler.getNumberInput(br, 3, false); // 번호 입력
         if (no == 1) { // 주문 진행
