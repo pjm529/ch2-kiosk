@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Order {
-    private List<MenuItem> orderList;
+    private final List<MenuItem> orderList;
 
     public Order() {
         this.orderList = new ArrayList<>();
@@ -57,12 +57,14 @@ public class Order {
         List<MenuItem> filterList = orderList
                 .stream()
                 .filter(order -> !order.getMenuNm().equalsIgnoreCase(menuNm))
-                .collect(Collectors.toList());
+                .toList();
 
         if (orderList.size() == filterList.size()) {
             return false;
         }
-        orderList = filterList;
+
+        this.clearOrder();
+        orderList.addAll(filterList);
         return true;
     }
 }
